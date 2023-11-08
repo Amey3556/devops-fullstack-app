@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  backend:
+    image: backend:latest
+    environment:
+      POSTGRES_HOST: 52.5.167.154
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB_NAME: mydb
+      POSTGRES_PORT: 5432
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: frontend:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
