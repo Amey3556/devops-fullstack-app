@@ -10,12 +10,12 @@ RUN go build -o myapp
 EXPOSE 8080
 
 # Define environment variables for your PostgreSQL database and allowed origins
-ENV DB_HOST <POSTGRES_HOST>
-ENV DB_USER <POSTGRES_USER>
-ENV DB_PASSWORD <POSTGRES_PASSWORD>
-ENV DB_NAME <POSTGRES_DB_NAME>
-ENV DB_PORT <POSTGRES_PORT>
-ENV ALLOWED_ORIGINS <ALLOWED_ORIGINS_VALUE>
+ENV DB_HOST=52.5.167.154
+ENV DB_USER=admin
+ENV DB_PASSWORD=admin
+ENV DB_NAME=mydb
+ENV DB_PORT=5432
+ENV ALLOWED_ORIGINS=*
 
 # Start the Go application when the container runs
 CMD ["./myapp"]
