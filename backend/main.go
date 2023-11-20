@@ -15,29 +15,37 @@ import (
 )
 
 func main() {
-
 	app := fiber.New()
-	app.Use(cors.New())
+
+	// Simplified CORS configuration
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: os.Getenv("ALLOWED_ORIGINS"),
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
+
 	db := initializeDatabaseConnection()
 	repository.RunMigrations(db)
 	employeeRepository := repository.NewEmployeeRepository(db)
 	employeeService := service.NewEmployeeService(employeeRepository)
 	employeeController := controller.NewEmployeeController(employeeService)
 	routes.RegisterRoute(app, employeeController)
+
 	err := app.Listen(":8080")
 	if err != nil {
 		log.Fatalln(fmt.Sprintf("error starting the server %s", err.Error()))
 	}
 }
+
 func initializeDatabaseConnection() *gorm.DB {
 	db, err := gorm.Open(postgres.New(postgres.Config{
 		DSN:                  createDsn(),
 		PreferSimpleProtocol: true,
-	}), &gorm.Config{})
+	}), &gorm.Config{
+		// Configure connection pool settings
+		// Adjust these values based on your application's needs
+		// MaxIdleConns: 10,
+		// MaxOpenConns: 100,
+	})
 	if err != nil {
 		log.Fatalln(fmt.Sprintf("error connecting with database %s", err.Error()))
 	}
