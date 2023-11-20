@@ -55,10 +55,10 @@ func initializeDatabaseConnection() *gorm.DB {
 
 func createDsn() string {
 	dsnFormat := "host=%s user=%s password=%s dbname=%s port=%s sslmode=disable"
-	dbHost := os.Getenv("DB_HOST")
-	dbUser := os.Getenv("DB_USER")
-	dbPassword := os.Getenv("DB_PASSWORD")
-	dbName := os.Getenv("DB_NAME")
-	dbPort := os.Getenv("DB_PORT")
+	dbHost := os.Getenv("52.5.167.154")
+	dbUser := os.Getenv("admin")
+	dbPassword := os.Getenv("admin")
+	dbName := os.Getenv("mydb")
+	dbPort := os.Getenv("5432")
 	return fmt.Sprintf(dsnFormat, dbHost, dbUser, dbPassword, dbName, dbPort)
 }
